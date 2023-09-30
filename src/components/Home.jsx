@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import Logo from "./Logo";
 
 import "../styles/home.css";
+import GenreFilter from "./GenreFilter";
 
 const Home = () => {
 	return (
@@ -12,6 +13,7 @@ const Home = () => {
 			</div>
 			<div className="main-content">
 				<NavBar />
+				<GenreFilter />
 			</div>
 		</div>
 	);

@@ -1,0 +1,28 @@
+.genre-container {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.genre-component {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--secondary-color);
+	border-radius: 20px;
+	cursor: pointer;
+	user-select: none;
+}
+
+.genre-component:hover {
+	filter: brightness(1.2);
+}
+
+.genre-component:active {
+	filter: brightness(1.4);
+}
+
+.genre-component > p {
+	color: var(--text-color-secondary);
+	padding: 5px 25px;
+	margin: 0;
+}
