@@ -1,0 +1,5 @@
+.signin {
+	background-color: var(--primary-background-color);
+	height: 100vh;
+	padding: 2rem;
+}

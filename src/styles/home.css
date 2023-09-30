@@ -1,0 +1,15 @@
+.home {
+	display: grid;
+	grid-template-rows: 1fr;
+	grid-template-columns: 280px 1fr;
+	height: 100vh;
+}
+
+.menu {
+	background-color: var(--primary-background-color);
+	padding: 2rem;
+}
+
+.main-content {
+	background-color: var(--secondary-background-color);
+}
