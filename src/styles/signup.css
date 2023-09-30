@@ -2,4 +2,14 @@
 	background-color: var(--primary-background-color);
 	height: 100vh;
 	padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.sign-logo {
+	position: absolute;
+	left: 2rem;
+	top: 2rem;
 }

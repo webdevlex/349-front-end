@@ -5,8 +5,10 @@
 	--accent-color: #d20002;
 	--text-color-selected: #fff;
 	--text-color-secondary: #acacac;
-	--text-color-detail: #a0a1a2;
+	--text-color-detail: #8a8a8b;
 	--star-color: #ffda58;
+	--font-primary: "Roboto", sans-serif;
+	--font-secondary: "Nunito", sans-serif;
 }
 
 body {
