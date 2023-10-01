@@ -47,13 +47,6 @@ const useDefaultMovie = (setMovieResults, currentGenre) => {
 				});
 				setMovieResults(results);
 			});
-
-			// const res = await axios.get(
-			// 	`https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`,
-			// 	header
-			// );
-			// setDefaultMovies(res.data.results);
-			// setMovieResults(res.data.results);
 		} catch (e) {
 			console.log(e);
 		}

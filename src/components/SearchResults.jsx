@@ -35,6 +35,7 @@ const SearchResults = ({ movieResults, currentGenre }) => {
 				{movieResults.map((movie) => (
 					<div className="result">
 						<img
+							loading="lazy"
 							src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
 							alt=""
 						/>

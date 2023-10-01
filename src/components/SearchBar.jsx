@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import search from "../images/search-solid.svg";
 import useMovieSearch from "../hooks/useMovieSearch";
 import useDefaultMovie from "../hooks/useDefaultMovie";
+import useDebounce from "../hooks/useDebounce";
 
 const SearchBar = ({ setMovieResults, currentGenre }) => {
 	const searchMovie = useMovieSearch(setMovieResults, currentGenre);
@@ -11,7 +12,7 @@ const SearchBar = ({ setMovieResults, currentGenre }) => {
 	const handleSearchChange = (e) => {
 		setSearchValue(e.target.value);
 		if (e.target.value) {
-			searchMovie(e.target.value);
+			search(searchMovie(e.target.value));
 		}
 	};
 

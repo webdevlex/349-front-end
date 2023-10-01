@@ -9,7 +9,6 @@ const useMovieSearch = (setMovieResults, currentGenre) => {
 	};
 
 	return async (searchValue) => {
-		console.log("searching");
 		try {
 			const req1 = await axios.get(
 				`https://api.themoviedb.org/3/search/movie?query=${searchValue}&language=en-US&page=1`,
