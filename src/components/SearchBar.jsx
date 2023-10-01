@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from "react";
 import search from "../images/search-solid.svg";
 import useMovieSearch from "../hooks/useMovieSearch";
-import useDefaultMovie from "../hooks/useDefaultMovie";
-import useDebounce from "../hooks/useDebounce";
+import useMenuClick from "../hooks/useMenuClick";
 
-const SearchBar = ({ setMovieResults, currentGenre }) => {
+const SearchBar = ({ setMovieResults, currentGenre, currentSection }) => {
 	const searchMovie = useMovieSearch(setMovieResults, currentGenre);
-	const getDefaultMovie = useDefaultMovie(setMovieResults, currentGenre);
+	const getResults = useMenuClick(setMovieResults);
 	const [searchValue, setSearchValue] = useState("");
 
 	const handleSearchChange = (e) => {
 		setSearchValue(e.target.value);
 		if (e.target.value) {
-			search(searchMovie(e.target.value));
+			searchMovie(e.target.value);
 		}
 	};
 
 	useEffect(() => {
 		if (!searchValue) {
-			getDefaultMovie();
+			getResults(currentSection);
 		}
 	}, [searchValue, currentGenre]);
 

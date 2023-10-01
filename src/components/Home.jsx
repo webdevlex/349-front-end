@@ -1,39 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import NavBar from "./NavBar";
 import Logo from "./Logo";
 
 import "../styles/home.css";
 import GenreFilter from "./GenreFilter";
-import SearchResults from "./SearchResults";
 import Menu from "./Menu";
+import SearchResults from "./SearchResults";
 
 const Home = () => {
 	const [movieResults, setMovieResults] = useState([]);
 	const [currentGenre, setCurrentGenre] = useState(null);
 	const [currentSection, setCurrentSection] = useState("Search");
-
-	let sectionToDisplay;
-	switch (currentSection) {
-		case "Search":
-			sectionToDisplay = (
-				<>
-					<GenreFilter
-						setCurrentGenre={setCurrentGenre}
-						currentGenre={currentGenre}
-					/>
-					<SearchResults
-						movieResults={movieResults}
-						currentGenre={currentGenre}
-					/>
-				</>
-			);
-			break;
-		case "Saved":
-			sectionToDisplay = <h1>Saved</h1>;
-			break;
-		default:
-			sectionToDisplay = <h1>No</h1>;
-	}
 
 	return (
 		<div className="home">
@@ -44,11 +21,26 @@ const Home = () => {
 				<Menu
 					currentSection={currentSection}
 					setCurrentSection={setCurrentSection}
+					setMovieResults={setMovieResults}
 				/>
 			</div>
 			<div className="main-content">
-				<NavBar setMovieResults={setMovieResults} currentGenre={currentGenre} />
-				{sectionToDisplay}
+				<NavBar
+					setMovieResults={setMovieResults}
+					currentGenre={currentGenre}
+					currentSection={currentSection}
+				/>
+				{currentSection === "Search" && (
+					<GenreFilter
+						setCurrentGenre={setCurrentGenre}
+						currentGenre={currentGenre}
+					/>
+				)}
+				<h1 className="search-title">{currentSection}</h1>
+				<SearchResults
+					movieResults={movieResults}
+					currentGenre={currentGenre}
+				/>
 			</div>
 		</div>
 	);

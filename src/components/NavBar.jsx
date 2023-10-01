@@ -4,7 +4,7 @@ import "../styles/navbar.css";
 import SearchBar from "./SearchBar";
 import { AuthContext } from "../context/AuthContext";
 
-const NavBar = ({ setMovieResults, currentGenre }) => {
+const NavBar = ({ setMovieResults, currentGenre, currentSection }) => {
 	const navigate = useNavigate();
 	const [auth, setAuth] = useContext(AuthContext);
 
@@ -17,10 +17,13 @@ const NavBar = ({ setMovieResults, currentGenre }) => {
 
 	return (
 		<div className="navbar">
-			<SearchBar
-				setMovieResults={setMovieResults}
-				currentGenre={currentGenre}
-			/>
+			{currentSection === "Search" && (
+				<SearchBar
+					setMovieResults={setMovieResults}
+					currentGenre={currentGenre}
+					currentSection={currentSection}
+				/>
+			)}
 			<ul className="auth-buttons">
 				{auth ? (
 					<li>
