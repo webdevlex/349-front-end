@@ -4,7 +4,7 @@ import axios from "axios";
 const useMovieSearch = (setMovieResults, currentGenre) => {
 	const header = {
 		headers: {
-			Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjZmU5YjYxMTdiYzdlZDE2OTA3ZjA3ZWZhNmMxNjIzNiIsInN1YiI6IjY1MTUxNTVkYTEwNzRiMDBlMzczYTllYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dVSB7EnqM57Klx8SvD0XoQ4EZm_AhV96PKOW5j16LFI`,
+			Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
 		},
 	};
 
