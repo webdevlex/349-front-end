@@ -11,5 +11,6 @@
 }
 
 .main-content {
+	padding: 2rem;
 	background-color: var(--secondary-background-color);
 }

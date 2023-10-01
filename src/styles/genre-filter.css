@@ -1,6 +1,8 @@
 .genre-container {
+	margin-top: 2rem;
 	display: flex;
-	justify-content: space-evenly;
+	gap: 8px;
+	flex-wrap: wrap;
 }
 
 .genre-component {
@@ -14,10 +16,6 @@
 }
 
 .genre-component:hover {
-	filter: brightness(1.2);
-}
-
-.genre-component:active {
 	filter: brightness(1.4);
 }
 
@@ -25,4 +23,8 @@
 	color: var(--text-color-secondary);
 	padding: 5px 25px;
 	margin: 0;
+}
+
+.selected {
+	filter: brightness(1.4);
 }

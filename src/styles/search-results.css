@@ -1,0 +1,19 @@
+.search-section {
+	margin-top: 2rem;
+}
+
+.search-title {
+	color: white;
+}
+
+.search-results {
+	margin-top: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.result {
+	background-color: white;
+	max-width: 500px;
+}

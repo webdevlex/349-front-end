@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
-import search from "../images/search-solid.svg";
+import SearchBar from "./SearchBar";
 import { AuthContext } from "../context/AuthContext";
 
-const NavBar = () => {
+const NavBar = ({ setMovieResults, currentGenre }) => {
 	const navigate = useNavigate();
 	const [auth, setAuth] = useContext(AuthContext);
-	console.log(auth);
 
 	const handleSignOut = () => {
 		localStorage.removeItem("auth");
@@ -18,10 +17,10 @@ const NavBar = () => {
 
 	return (
 		<div className="navbar">
-			<div className="search-bar">
-				<img src={search} alt="magnifying glass" className="search-icon" />
-				<input className="search-input" placeholder="Search"></input>
-			</div>
+			<SearchBar
+				setMovieResults={setMovieResults}
+				currentGenre={currentGenre}
+			/>
 			<ul className="auth-buttons">
 				{auth ? (
 					<li>
