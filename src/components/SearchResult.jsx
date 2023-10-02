@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import star from "../images/star-solid.svg";
+import heartOutline from "../images/heart-regular.svg";
+import heartSolid from "../images/heart-solid.svg";
 
 Modal.setAppElement("#root");
 
@@ -28,6 +30,7 @@ const genres = {
 
 const SearchResult = ({ movie }) => {
 	const [showModal, setShowModal] = useState(false);
+	const [hoveringOverHeart, setHoveringOverHeart] = useState(false);
 
 	const handleModalOpen = () => {
 		setShowModal(true);
@@ -37,9 +40,21 @@ const SearchResult = ({ movie }) => {
 		setShowModal(false);
 	};
 
+	const toggleHeartHover = () => {
+		console.log("ha");
+		setHoveringOverHeart((current) => !current);
+	};
+
 	return (
 		<div className="result">
 			<div className="result-img">
+				<div className="shader"></div>
+				<div
+					className="heart"
+					onMouseOver={toggleHeartHover}
+					onMouseOut={toggleHeartHover}>
+					<img src={heartSolid} alt="" className="heart-icon" />
+				</div>
 				<img
 					loading="lazy"
 					src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
