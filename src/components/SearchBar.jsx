@@ -17,7 +17,7 @@ const SearchBar = ({ setMovieResults, currentGenre, currentSection }) => {
 
 	useEffect(() => {
 		if (!searchValue) {
-			getResults(currentSection);
+			getResults(currentSection, currentGenre);
 		}
 	}, [searchValue, currentGenre]);
 

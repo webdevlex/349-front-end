@@ -45,7 +45,7 @@ const useMovieSearch = (setMovieResults, currentGenre) => {
 						}
 					});
 				});
-				setMovieResults(results);
+				setMovieResults(results.slice(0, 20));
 			});
 		} catch (e) {
 			console.log(e);
