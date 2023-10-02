@@ -9,3 +9,8 @@
 	padding: 2rem;
 	background-color: var(--secondary-background-color);
 }
+
+.search-title {
+	color: white;
+	margin-top: 40px;
+}

@@ -13,10 +13,12 @@
 	border-radius: 20px;
 	cursor: pointer;
 	user-select: none;
+	transition: all 0.1s ease-in-out;
 }
 
 .genre-component:hover {
 	filter: brightness(1.4);
+	transform: scale(1.05);
 }
 
 .genre-component > p {

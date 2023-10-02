@@ -16,16 +16,22 @@
 	padding: 5px 2rem;
 	margin-bottom: 16px;
 	color: var(--text-color-detail);
-	font-weight: 600;
+	font-weight: 500;
 	cursor: pointer;
+	font-size: 20px;
+	transition: all 0.1s ease-in-out;
+}
+
+.nav-menu-item:hover {
+	filter: brightness(1.4);
 }
 
 .selected-menu-item {
-	color: var(--text-color-selected);
+	color: var(--text-color-selected) !important;
 	background: rgb(210, 0, 2);
 	background: linear-gradient(
 		90deg,
-		rgba(210, 0, 2, 1) 0%,
+		rgba(210, 0, 2, 1) -50%,
 		rgba(19, 25, 43, 1) 100%
 	);
 }

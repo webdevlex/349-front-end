@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
+import star from "../images/star-solid.svg";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 const genres = {
 	28: "Action",
@@ -30,23 +31,35 @@ const SearchResult = ({ movie }) => {
 
 	const handleModalOpen = () => {
 		setShowModal(true);
-	}
+	};
 
 	const handleModalClose = () => {
 		setShowModal(false);
-	}
+	};
 
 	return (
 		<div className="result">
-			<img
-				loading="lazy"
-				src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-				alt=""
-				onClick={handleModalOpen}
-			/>
-			<p>Title: {movie.original_title}</p>
-			<p>Vote Average: {movie.vote_average}</p>
-			<p>Vote Count: {movie.vote_count}</p>
+			<div className="result-img">
+				<img
+					loading="lazy"
+					src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+					alt=""
+					className="cover-img"
+					onClick={handleModalOpen}
+				/>
+			</div>
+
+			<div className="result-details">
+				<div className="result-votes">
+					<p className="result-avg">
+						{movie.vote_average}
+						<span className="out-of-10">/10</span>
+					</p>
+					<img src={star} alt="" className="star" />
+				</div>
+				<p className="result-title">{movie.original_title}</p>
+				<p className="result-date">{movie.release_date.slice(0, 4)}</p>
+			</div>
 
 			<Modal
 				isOpen={showModal}
@@ -55,13 +68,12 @@ const SearchResult = ({ movie }) => {
 					content: {
 						backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
 								url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}')`,
-						backgroundSize: 'cover',
+						backgroundSize: "cover",
 					},
 					overlay: {
-						background: 'rgba(0, 0, 0, 0.7)',
+						background: "rgba(0, 0, 0, 0.7)",
 					},
-				}}
-			>
+				}}>
 				<p>Title: {movie.original_title}</p>
 				<p>Description: {movie.overview}</p>
 				<p>
@@ -74,7 +86,7 @@ const SearchResult = ({ movie }) => {
 				<p>Release: {movie.release_date}</p>
 				<button onClick={handleModalClose}>Close Modal</button>
 			</Modal>
-		</div >
+		</div>
 	);
 };
 
