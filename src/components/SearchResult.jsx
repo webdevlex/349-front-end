@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import star from "../images/star-solid.svg";
 import heartOutline from "../images/heart-regular.svg";
 import heartSolid from "../images/heart-solid.svg";
+import useMovieModalInfo from "../hooks/useMovieModalInfo";
 
 Modal.setAppElement("#root");
 
@@ -45,6 +46,19 @@ const SearchResult = ({ movie }) => {
 		setHoveringOverHeart((current) => !current);
 	};
 
+	const [movieMap, setMovieMap] = useState({});
+	const getMovieInfo = useMovieModalInfo(setMovieMap, movie.name);
+
+	useEffect(() => {
+		getMovieInfo(movie.id)
+			.then((movieInfo) => {
+				setMovieMap(movieInfo);
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+	}, [movie.id]);
+
 	return (
 		<div className="result">
 			<div className="result-img">
@@ -80,26 +94,32 @@ const SearchResult = ({ movie }) => {
 				isOpen={showModal}
 				className="result-modal"
 				style={{
-					content: {
-						backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-								url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}')`,
-						backgroundSize: "cover",
-					},
 					overlay: {
 						background: "rgba(0, 0, 0, 0.7)",
 					},
 				}}>
-				<p>Title: {movie.original_title}</p>
-				<p>Description: {movie.overview}</p>
-				<p>
-					Genres:{" "}
-					{movie.genre_ids.map((id) => (
-						<span key={id}>{genres[id]}, </span>
-					))}
-				</p>
-				<p>Popularity: {movie.popularity}</p>
-				<p>Release: {movie.release_date}</p>
-				<button onClick={handleModalClose}>Close Modal</button>
+				<img className="modal-img" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+					alt="" />
+				<div className="modal-bottom">
+					<p className="modal-title">{movie.original_title}</p>
+					<p className="modal-text">
+						{movieMap['contentRating']}
+						&nbsp; | &nbsp;
+						{Math.floor(movieMap['runtime'] / 60)} Hours {movieMap['runtime'] % 60} Min
+						&nbsp; | &nbsp;
+						{movie.genre_ids.map((id, index) => (
+							<span key={id}>
+								{genres[id]}
+								{index !== movie.genre_ids.length - 1 ? ', ' : ''}
+							</span>
+						))}
+						&nbsp; | &nbsp;
+						{movie.release_date}</p>
+					<p>{movie.overview}</p>
+					<p>Director: {movieMap['directors']}</p>
+					<p>Budget: ${movieMap['budget']}</p>
+					<button onClick={handleModalClose}>Close Modal</button>
+				</div>
 			</Modal>
 		</div>
 	);
