@@ -1,17 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 import SearchResult from "./SearchResult";
 import "../styles/search-results.css";
 
 const SearchResults = ({ movieResults, currentGenre }) => {
-	useEffect(() => {
-		console.log(movieResults);
-	}, [movieResults]);
+	const [user, setUser] = useContext(UserContext);
 
 	return (
 		<div className="search-section">
 			<div className="search-results">
 				{movieResults.map((movie, index) => (
-					<SearchResult key={index} movie={movie} />
+					<SearchResult
+						key={index}
+						movie={movie}
+						playlistIds={user.playlistIds}
+					/>
 				))}
 			</div>
 		</div>

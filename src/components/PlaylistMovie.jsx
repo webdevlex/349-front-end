@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Modal from "react-modal";
-import star from "../images/star-solid.svg";
-
-import useMovieModalInfo from "../hooks/useMovieModalInfo";
+import React, { useState } from "react";
 import HeartButton from "./HeartButton";
+import PlaylistHeartButton from "./PlaylistHeartButton";
+import star from "../images/star-solid.svg";
+import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 
@@ -29,7 +28,7 @@ const genres = {
 	37: "Western",
 };
 
-const SearchResult = ({ movie, playlistIds }) => {
+const PlaylistMovie = ({ movie, playlistIds }) => {
 	const [showModal, setShowModal] = useState(false);
 
 	const handleModalOpen = () => {
@@ -40,28 +39,11 @@ const SearchResult = ({ movie, playlistIds }) => {
 		setShowModal(false);
 	};
 
-	const [movieMap, setMovieMap] = useState({});
-	const getMovieInfo = useMovieModalInfo(setMovieMap, movie.name);
-
-	useEffect(() => {
-		getMovieInfo(movie.id)
-			.then((movieInfo) => {
-				setMovieMap(movieInfo);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, [movie.id]);
-
 	return (
 		<div className="result">
 			<div className="result-img">
 				<div className="shader"></div>
-				<HeartButton
-					movie={movie}
-					movieMap={movieMap}
-					playlistIds={playlistIds}
-				/>
+				<PlaylistHeartButton movie={movie} playlistIds={playlistIds} />
 				<img
 					loading="lazy"
 					src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
@@ -99,10 +81,10 @@ const SearchResult = ({ movie, playlistIds }) => {
 				<div className="modal-bottom">
 					<p className="modal-title">{movie.original_title}</p>
 					<p className="modal-text">
-						{movieMap["contentRating"]}
+						{movie["contentRating"]}
 						&nbsp; | &nbsp;
-						{Math.floor(movieMap["runtime"] / 60)} Hours{" "}
-						{movieMap["runtime"] % 60} Min &nbsp; | &nbsp;
+						{Math.floor(movie["runtime"] / 60)} Hours {movie["runtime"] % 60}{" "}
+						Min &nbsp; | &nbsp;
 						{movie.genre_ids.map((id, index) => (
 							<span key={id}>
 								{genres[id]}
@@ -113,8 +95,8 @@ const SearchResult = ({ movie, playlistIds }) => {
 						{movie.release_date}
 					</p>
 					<p>{movie.overview}</p>
-					<p>Director: {movieMap["directors"]}</p>
-					<p>Budget: ${movieMap["budget"]}</p>
+					<p>Director: {movie["directors"]}</p>
+					<p>Budget: ${movie["budget"]}</p>
 					<button onClick={handleModalClose}>Close Modal</button>
 				</div>
 			</Modal>
@@ -122,4 +104,4 @@ const SearchResult = ({ movie, playlistIds }) => {
 	);
 };
 
-export default SearchResult;
+export default PlaylistMovie;

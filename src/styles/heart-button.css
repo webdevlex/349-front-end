@@ -20,6 +20,16 @@
 	transform: scale(1.25);
 }
 
+.gray-heart {
+	filter: invert(97%) sepia(0%) saturate(51%) hue-rotate(156deg) brightness(86%)
+		contrast(104%);
+}
+
+.red-heart {
+	filter: invert(32%) sepia(51%) saturate(2307%) hue-rotate(337deg)
+		brightness(88%) contrast(75%);
+}
+
 .heart-icon {
 	pointer-events: none;
 }

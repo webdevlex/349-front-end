@@ -75,7 +75,7 @@ const SignIn = () => {
 				}
 			} catch (e) {
 				setError(e.response.data.error);
-				console.log(e.response.data.error);
+				console.error(e.response.data.error);
 			}
 		}
 	};
@@ -114,7 +114,7 @@ const SignIn = () => {
 					</div>
 					<p className="error-message">{error}</p>
 					<button className="sign-button" type="submit">
-						Sign In
+						Sign Up
 					</button>
 				</form>
 				<div className="sign-additional">
