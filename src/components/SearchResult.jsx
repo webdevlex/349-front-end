@@ -83,7 +83,7 @@ const SearchResult = ({ movie, playlistIds }) => {
 				<p className="result-date">{movie.release_date.slice(0, 4)}</p>
 			</div>
 
-			<Modal
+			{/* <Modal
 				isOpen={showModal}
 				className="result-modal"
 				style={{
@@ -99,10 +99,10 @@ const SearchResult = ({ movie, playlistIds }) => {
 				<div className="modal-bottom">
 					<p className="modal-title">{movie.original_title}</p>
 					<p className="modal-text">
-						{movieMap["contentRating"]}
+						{movieMap && movieMap.contentRating}
 						&nbsp; | &nbsp;
-						{Math.floor(movieMap["runtime"] / 60)} Hours{" "}
-						{movieMap["runtime"] % 60} Min &nbsp; | &nbsp;
+						{Math.floor(movieMap.runtime / 60)} Hours {movieMap.runtime % 60}{" "}
+						Min &nbsp; | &nbsp;
 						{movie.genre_ids.map((id, index) => (
 							<span key={id}>
 								{genres[id]}
@@ -113,11 +113,11 @@ const SearchResult = ({ movie, playlistIds }) => {
 						{movie.release_date}
 					</p>
 					<p>{movie.overview}</p>
-					<p>Director: {movieMap["directors"]}</p>
-					<p>Budget: ${movieMap["budget"]}</p>
+					<p>Director: {movieMap.directors}</p>
+					<p>Budget: ${movieMap.budget}</p>
 					<button onClick={handleModalClose}>Close Modal</button>
 				</div>
-			</Modal>
+			</Modal> */}
 		</div>
 	);
 };

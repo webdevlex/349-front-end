@@ -13,15 +13,15 @@ const useMovieModalInfo = (setMovieInfoMap, movieName) => {
 			const credits = await axios.get(
 				`https://api.themoviedb.org/3/movie/${movieID}/credits?language=en-US`,
 				header
-			)
+			);
 			const details = await axios.get(
 				`https://api.themoviedb.org/3/movie/${movieID}?language=en-US`,
 				header
-			)
+			);
 			const contentRating = await axios.get(
 				`https://api.themoviedb.org/3/movie/${movieID}/releases?language=en-US`,
 				header
-			)
+			);
 			Promise.all([credits, details, contentRating]).then((values) => {
 				let movieMap = {};
 
@@ -29,14 +29,15 @@ const useMovieModalInfo = (setMovieInfoMap, movieName) => {
 				movieMap[movieID] = movieName;
 
 				const directorNames = values[0].data.crew
-					.filter((crewMember) => crewMember.job === 'Director')
+					.filter((crewMember) => crewMember.job === "Director")
 					.map((director) => director.name);
 
 				const runtime = values[1].data.runtime;
 				const budget = values[1].data.budget.toLocaleString();
 
-				const usEntries = values[2].data.countries
-					.filter(country => country.iso_3166_1 === 'US' && country.certification);
+				const usEntries = values[2].data.countries.filter(
+					(country) => country.iso_3166_1 === "US" && country.certification
+				);
 
 				// Get the most recent content rating
 				usEntries.sort((a, b) => {
@@ -45,17 +46,17 @@ const useMovieModalInfo = (setMovieInfoMap, movieName) => {
 					return dateB - dateA;
 				});
 
-				const recentContentRating = usEntries[0].certification;
+				const recentContentRating = usEntries[0]?.certification;
 
 				movieMap = {
-					directors: directorNames.join(", "),
-					runtime: runtime,
-					budget: budget,
-					contentRating: recentContentRating
-				}
+					directors: directorNames.join(", ") || "",
+					runtime: runtime || "",
+					budget: budget || "",
+					contentRating: recentContentRating || "",
+				};
 
 				setMovieInfoMap(movieMap);
-			})
+			});
 		} catch (e) {
 			console.log(e);
 		}

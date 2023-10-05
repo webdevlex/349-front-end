@@ -14,10 +14,6 @@ const Menu = ({ currentSection, setCurrentSection, setMovieResults }) => {
 		getResults(menuItem);
 	};
 
-	if (auth) {
-		menuItems.push("My Playlist");
-	}
-
 	return (
 		<ul className="nav-menu">
 			{menuItems.map((menuItem, index) => (
@@ -30,6 +26,17 @@ const Menu = ({ currentSection, setCurrentSection, setMovieResults }) => {
 					{menuItem}
 				</li>
 			))}
+			{auth && (
+				<div className="nav-playlist-item-wrapper">
+					<li
+						className={`nav-menu-item nav-playlist-item ${
+							currentSection === "My Playlist" ? "selected-menu-item" : ""
+						}`}
+						onClick={() => handleMenuItemClick("My Playlist")}>
+						My Playlist
+					</li>
+				</div>
+			)}
 		</ul>
 	);
 };

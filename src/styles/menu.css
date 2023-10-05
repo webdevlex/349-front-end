@@ -1,5 +1,7 @@
 .menu {
 	background-color: var(--primary-background-color);
+	display: flex;
+	flex-direction: column;
 }
 
 .logo-padding {
@@ -12,8 +14,7 @@
 	margin-top: 50px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	/* height: 100%; */
+	flex-grow: 1;
 }
 
 .nav-menu-item {
@@ -24,6 +25,16 @@
 	cursor: pointer;
 	font-size: 20px;
 	transition: all 0.1s ease-in-out;
+}
+
+.nav-playlist-item-wrapper {
+	display: flex;
+	align-items: flex-end;
+	height: 100%;
+}
+
+.nav-playlist-item {
+	width: 100%;
 }
 
 .nav-menu-item:hover {
