@@ -5,7 +5,7 @@ import logo from "../images/logo.svg";
 
 const Logo = () => {
 	return (
-		<Link to="/" className="logo-link">
+		<Link to="/search" className="logo-link">
 			<img src={logo} alt="logo" className="logo" />
 		</Link>
 	);

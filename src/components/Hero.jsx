@@ -9,7 +9,7 @@ const Hero = () => {
 			<div className="hero-content">
 				<h1 className="hero-heading">FlickFix</h1>
 				<p className="hero-sub-heading">
-					Empowering You to Create Your Movie Playlists
+					Empowering You to Create Movie Playlists
 				</p>
 				<div className="hero-buttons">
 					<Link to="/search">

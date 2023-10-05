@@ -6,21 +6,24 @@ import Hero from "./components/Hero";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import { AuthProvider } from "./context/AuthContext";
+import { UserProvider } from "./context/UserContext";
 
 function App() {
 	return (
-		<AuthProvider>
-			<BrowserRouter>
-				<div className="App">
-					<Routes>
-						<Route path="/" element={<Hero />} />
-						<Route path="/search" element={<Home />} />
-						<Route path="/signup" element={<SignUp />} />
-						<Route path="/signin" element={<SignIn />} />
-					</Routes>
-				</div>
-			</BrowserRouter>
-		</AuthProvider>
+		<UserProvider>
+			<AuthProvider>
+				<BrowserRouter>
+					<div className="App">
+						<Routes>
+							<Route path="/" element={<Hero />} />
+							<Route path="/search" element={<Home />} />
+							<Route path="/signup" element={<SignUp />} />
+							<Route path="/signin" element={<SignIn />} />
+						</Routes>
+					</div>
+				</BrowserRouter>
+			</AuthProvider>
+		</UserProvider>
 	);
 }
 

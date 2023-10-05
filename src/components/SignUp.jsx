@@ -71,7 +71,7 @@ const SignIn = () => {
 					localStorage.setItem("auth", JSON.stringify(true));
 					localStorage.setItem("user", JSON.stringify(res.data));
 					setAuth(true);
-					navigate("/");
+					navigate("/search");
 				}
 			} catch (e) {
 				setError(e.response.data.error);

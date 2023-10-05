@@ -15,7 +15,7 @@ const Menu = ({ currentSection, setCurrentSection, setMovieResults }) => {
 	};
 
 	if (auth) {
-		menuItems.push("Saved Movies");
+		menuItems.push("My Playlist");
 	}
 
 	return (

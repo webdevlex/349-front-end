@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import star from "../images/star-solid.svg";
-import heartOutline from "../images/heart-regular.svg";
-import heartSolid from "../images/heart-solid.svg";
+
 import useMovieModalInfo from "../hooks/useMovieModalInfo";
+import HeartButton from "./HeartButton";
 
 Modal.setAppElement("#root");
 
@@ -31,7 +31,6 @@ const genres = {
 
 const SearchResult = ({ movie }) => {
 	const [showModal, setShowModal] = useState(false);
-	const [hoveringOverHeart, setHoveringOverHeart] = useState(false);
 
 	const handleModalOpen = () => {
 		setShowModal(true);
@@ -39,11 +38,6 @@ const SearchResult = ({ movie }) => {
 
 	const handleModalClose = () => {
 		setShowModal(false);
-	};
-
-	const toggleHeartHover = () => {
-		console.log("ha");
-		setHoveringOverHeart((current) => !current);
 	};
 
 	const [movieMap, setMovieMap] = useState({});
@@ -56,19 +50,14 @@ const SearchResult = ({ movie }) => {
 			})
 			.catch((error) => {
 				console.log(error);
-			})
+			});
 	}, [movie.id]);
 
 	return (
 		<div className="result">
 			<div className="result-img">
 				<div className="shader"></div>
-				<div
-					className="heart"
-					onMouseOver={toggleHeartHover}
-					onMouseOut={toggleHeartHover}>
-					<img src={heartSolid} alt="" className="heart-icon" />
-				</div>
+				<HeartButton movie={movie} movieMap={movieMap} />
 				<img
 					loading="lazy"
 					src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
@@ -98,26 +87,30 @@ const SearchResult = ({ movie }) => {
 						background: "rgba(0, 0, 0, 0.7)",
 					},
 				}}>
-				<img className="modal-img" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-					alt="" />
+				<img
+					className="modal-img"
+					src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+					alt=""
+				/>
 				<div className="modal-bottom">
 					<p className="modal-title">{movie.original_title}</p>
 					<p className="modal-text">
-						{movieMap['contentRating']}
+						{movieMap["contentRating"]}
 						&nbsp; | &nbsp;
-						{Math.floor(movieMap['runtime'] / 60)} Hours {movieMap['runtime'] % 60} Min
-						&nbsp; | &nbsp;
+						{Math.floor(movieMap["runtime"] / 60)} Hours{" "}
+						{movieMap["runtime"] % 60} Min &nbsp; | &nbsp;
 						{movie.genre_ids.map((id, index) => (
 							<span key={id}>
 								{genres[id]}
-								{index !== movie.genre_ids.length - 1 ? ', ' : ''}
+								{index !== movie.genre_ids.length - 1 ? ", " : ""}
 							</span>
 						))}
 						&nbsp; | &nbsp;
-						{movie.release_date}</p>
+						{movie.release_date}
+					</p>
 					<p>{movie.overview}</p>
-					<p>Director: {movieMap['directors']}</p>
-					<p>Budget: ${movieMap['budget']}</p>
+					<p>Director: {movieMap["directors"]}</p>
+					<p>Budget: ${movieMap["budget"]}</p>
 					<button onClick={handleModalClose}>Close Modal</button>
 				</div>
 			</Modal>

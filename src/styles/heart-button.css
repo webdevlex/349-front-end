@@ -1,0 +1,25 @@
+.heart {
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	right: 18px;
+	top: 16px;
+	filter: invert(97%) sepia(0%) saturate(51%) hue-rotate(156deg) brightness(86%)
+		contrast(104%);
+	transition: all 0.1s ease-in-out;
+	padding: 0;
+	outline: none;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.heart:hover {
+	filter: invert(32%) sepia(51%) saturate(2307%) hue-rotate(337deg)
+		brightness(88%) contrast(75%);
+	transform: scale(1.25);
+}
+
+.heart-icon {
+	pointer-events: none;
+}
