@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import heartSolid from "../images/heart-solid.svg";
+import removeFromPlaylist from "../helpers/removeFromPlaylist";
 import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -52,7 +53,8 @@ const HeartButton = ({ movie, movieMap, playlistIds }) => {
 				navigate("/signin");
 			}
 		} else {
-			console.log("unlike");
+			const userData = await removeFromPlaylist(movie.id, user.user_id);
+			setUser(userData);
 		}
 	};
 

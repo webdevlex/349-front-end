@@ -3,7 +3,7 @@ import heartSolid from "../images/heart-solid.svg";
 import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import removeFromPlaylist from "../helpers/removeFromPlaylist";
 import "../styles/heart-button.css";
 
 const PlaylistHeartButton = ({ movie, playlistIds }) => {
@@ -18,7 +18,8 @@ const PlaylistHeartButton = ({ movie, playlistIds }) => {
 	};
 
 	const handleHeartClick = async () => {
-		console.log("unlike movie");
+		const userData = await removeFromPlaylist(movie.id, user.user_id);
+		setUser(userData);
 	};
 
 	return (
