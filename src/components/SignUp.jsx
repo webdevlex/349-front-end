@@ -96,8 +96,8 @@ const SignIn = () => {
 			</div>
 			<div className="sign-form-wrapper">
 				<SignForm
-					title={"Sign In"}
-					subheading={"Sign in to access your saved movies."}>
+					title={"Sign Up"}
+					subheading={"Sign up to create movie playlists."}>
 					<form className="form" onSubmit={(e) => handleSubmit(e)}>
 						<div className="sign-inputs">
 							<Input
