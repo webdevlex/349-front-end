@@ -131,7 +131,7 @@ const SearchResult = ({ movie, playlistIds }) => {
 						<span className="modal-text">
 							{movieMap && movieMap.contentRating}
 						</span>
-						<span c> | </span>
+						<span> | </span>
 						<span>
 							{movie.genre_ids.map((id, index) => (
 								<span key={id}>

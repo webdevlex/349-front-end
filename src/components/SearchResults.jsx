@@ -6,9 +6,9 @@ import "../styles/search-results.css";
 const SearchResults = ({ movieResults, currentGenre }) => {
 	const [user, setUser] = useContext(UserContext);
 
-	useEffect(() => {
-		console.log(movieResults);
-	}, [movieResults]);
+	// useEffect(() => {
+	// 	console.log(movieResults);
+	// }, [movieResults]);
 
 	return (
 		<div className="search-section">

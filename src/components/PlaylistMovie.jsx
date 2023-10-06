@@ -105,7 +105,7 @@ const PlaylistMovie = ({ movie, playlistIds }) => {
 					</div>
 					<p className="modal-text">
 						<span className="modal-text">{movie && movie.contentRating}</span>
-						<span c> | </span>
+						<span> | </span>
 						<span>
 							{movie.genre_ids.map((id, index) => (
 								<span key={id}>

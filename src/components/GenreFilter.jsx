@@ -10,10 +10,12 @@ const genres = [
 		id: 12,
 		name: "Adventure",
 	},
+
 	{
 		id: 16,
 		name: "Animation",
 	},
+
 	{
 		id: 35,
 		name: "Comedy",
@@ -21,6 +23,10 @@ const genres = [
 	{
 		id: 80,
 		name: "Crime",
+	},
+	{
+		id: 99,
+		name: "Documentary",
 	},
 	{
 		id: 18,
@@ -61,6 +67,10 @@ const genres = [
 	{
 		id: 53,
 		name: "Thriller",
+	},
+	{
+		id: 10770,
+		name: "TV Movie",
 	},
 	{
 		id: 10752,
