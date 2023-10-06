@@ -3,14 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
 import SearchBar from "./SearchBar";
 import { AuthContext } from "../context/AuthContext";
+import { UserContext } from "../context/UserContext";
 
 const NavBar = ({ setMovieResults, currentGenre, currentSection }) => {
 	const navigate = useNavigate();
 	const [auth, setAuth] = useContext(AuthContext);
+	const [user, setUser] = useContext(UserContext);
 
 	const handleSignOut = () => {
 		localStorage.removeItem("auth");
 		localStorage.removeItem("user");
+		setUser(null);
 		setAuth(false);
 		navigate("/signin");
 	};

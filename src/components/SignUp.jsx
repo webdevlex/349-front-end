@@ -5,6 +5,7 @@ import SignForm from "./SignForm";
 import Input from "./Input";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { UserContext } from "../context/UserContext";
 import { BackendUrlContext } from "../context/BackendUrlContext";
 import Spinner from "../components/Spinner";
 
@@ -13,6 +14,7 @@ import axios from "axios";
 const SignIn = () => {
 	const navigate = useNavigate();
 	const [auth, setAuth] = useContext(AuthContext);
+	const [user, setUser] = useContext(UserContext);
 	const backendUrl = useContext(BackendUrlContext);
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState("");
@@ -75,6 +77,7 @@ const SignIn = () => {
 				if (res.status === 200) {
 					localStorage.setItem("auth", JSON.stringify(true));
 					localStorage.setItem("user", JSON.stringify(res.data));
+					setUser(res.data);
 					setAuth(true);
 					navigate("/search");
 				}
