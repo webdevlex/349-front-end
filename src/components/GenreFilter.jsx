@@ -82,7 +82,6 @@ const genres = [
 
 const GenreFilter = ({ setCurrentGenre, currentGenre }) => {
 	const handleGenreClick = (genre) => {
-		console.log(genre);
 		if (currentGenre && genre.name === currentGenre.name) {
 			setCurrentGenre(null);
 		} else {

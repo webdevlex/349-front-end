@@ -33,6 +33,7 @@
 	right: -50px;
 	top: -125px;
 	transform: rotate(-45deg);
+	pointer-events: none;
 }
 
 .result-img {
@@ -41,7 +42,7 @@
 	width: 375px;
 	overflow: hidden;
 	position: relative;
-	/* background-color: var(--primary-background-color); */
+	background-color: var(--primary-background-color);
 	box-shadow: 0px 0px 50px 10px rgba(255, 0, 0, 0.1);
 }
 

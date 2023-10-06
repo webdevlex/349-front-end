@@ -1,10 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import SearchResult from "./SearchResult";
 import "../styles/search-results.css";
 
 const SearchResults = ({ movieResults, currentGenre }) => {
 	const [user, setUser] = useContext(UserContext);
+
+	useEffect(() => {
+		console.log(movieResults);
+	}, [movieResults]);
 
 	return (
 		<div className="search-section">

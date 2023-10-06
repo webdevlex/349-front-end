@@ -74,7 +74,7 @@ const SearchResult = ({ movie, playlistIds }) => {
 			<div className="result-details">
 				<div className="result-votes">
 					<p className="result-avg">
-						{movie.vote_average}
+						{Math.round(movie.vote_average * 10) / 10}
 						<span className="out-of-10">/10</span>
 					</p>
 					<img src={star} alt="" className="star" />
@@ -83,7 +83,7 @@ const SearchResult = ({ movie, playlistIds }) => {
 				<p className="result-date">{movie.release_date.slice(0, 4)}</p>
 			</div>
 
-			{/* <Modal
+			<Modal
 				isOpen={showModal}
 				className="result-modal"
 				style={{
@@ -117,7 +117,7 @@ const SearchResult = ({ movie, playlistIds }) => {
 					<p>Budget: ${movieMap.budget}</p>
 					<button onClick={handleModalClose}>Close Modal</button>
 				</div>
-			</Modal> */}
+			</Modal>
 		</div>
 	);
 };

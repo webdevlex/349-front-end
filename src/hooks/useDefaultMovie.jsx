@@ -10,31 +10,31 @@ const useDefaultMovie = (setMovieResults, currentGenre) => {
 
 	return async () => {
 		try {
-			const req1 = await axios.get(
-				`https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`,
+			const req1 = axios.get(
+				`https://api.themoviedb.org/3/movie/popular?language=en&page=1`,
 				header
 			);
 			const req2 = axios.get(
-				`https://api.themoviedb.org/3/movie/popular?language=en-US&page=2`,
+				`https://api.themoviedb.org/3/movie/popular?language=en&page=2`,
 				header
 			);
 			const req3 = axios.get(
-				`https://api.themoviedb.org/3/movie/popular?language=en-US&page=3`,
+				`https://api.themoviedb.org/3/movie/popular?language=en&page=3`,
 				header
 			);
 			const req4 = axios.get(
-				`https://api.themoviedb.org/3/movie/popular?language=en-US&page=4`,
+				`https://api.themoviedb.org/3/movie/popular?language=en&page=4`,
 				header
 			);
 			const req5 = axios.get(
-				`https://api.themoviedb.org/3/movie/popular?language=en-US&page=5`,
+				`https://api.themoviedb.org/3/movie/popular?language=en&page=5`,
 				header
 			);
 			Promise.all([req1, req2, req3, req4, req5]).then((values) => {
 				const results = [];
 				values.forEach((res) => {
 					res.data.results.forEach((result) => {
-						if (result.backdrop_path) {
+						if (result.backdrop_path && result.original_language === "en") {
 							if (currentGenre) {
 								if (result.genre_ids.includes(currentGenre.id)) {
 									results.push(result);

@@ -8,8 +8,12 @@ const Playlist = () => {
 
 	return (
 		<div className="search-results">
-			{user.playlist.map((movie) => (
-				<PlaylistMovie movie={movie} playlistIds={user.playlistIds} />
+			{user.playlist.map((movie, index) => (
+				<PlaylistMovie
+					key={index}
+					movie={movie}
+					playlistIds={user.playlistIds}
+				/>
 			))}
 		</div>
 	);

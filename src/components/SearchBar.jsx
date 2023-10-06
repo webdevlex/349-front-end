@@ -1,19 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import search from "../images/search-solid.svg";
 import useMovieSearch from "../hooks/useMovieSearch";
 import useMenuClick from "../hooks/useMenuClick";
+import debouce from "lodash.debounce";
 
 const SearchBar = ({ setMovieResults, currentGenre, currentSection }) => {
-	const searchMovie = useMovieSearch(setMovieResults, currentGenre);
+	const searchMovie = useMovieSearch(setMovieResults);
 	const getResults = useMenuClick(setMovieResults);
 	const [searchValue, setSearchValue] = useState("");
 
-	const handleSearchChange = (e) => {
+	const handleChange = (e, genre) => {
 		setSearchValue(e.target.value);
 		if (e.target.value) {
-			searchMovie(e.target.value);
+			searchMovie(e.target.value, genre);
 		}
 	};
+
+	const debouncedResults = useMemo(() => {
+		return debouce((e) => handleChange(e, currentGenre), 300);
+	}, [currentGenre]);
+
+	useEffect(() => {
+		return () => {
+			debouncedResults.cancel();
+		};
+	});
 
 	useEffect(() => {
 		if (!searchValue) {
@@ -23,7 +34,7 @@ const SearchBar = ({ setMovieResults, currentGenre, currentSection }) => {
 
 	useEffect(() => {
 		if (searchValue) {
-			searchMovie(searchValue);
+			searchMovie(searchValue, currentGenre);
 		}
 	}, [currentGenre]);
 
@@ -33,8 +44,8 @@ const SearchBar = ({ setMovieResults, currentGenre, currentSection }) => {
 			<input
 				className="search-input"
 				placeholder="Search"
-				value={searchValue}
-				onChange={(e) => handleSearchChange(e)}
+				defaultValue=""
+				onChange={debouncedResults}
 			/>
 		</div>
 	);

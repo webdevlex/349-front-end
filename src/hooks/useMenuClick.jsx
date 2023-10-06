@@ -28,7 +28,6 @@ const useMenuClick = (setMovieResults) => {
 				break;
 			default:
 		}
-		console.log(url);
 
 		try {
 			if (currentSection === "Search" && currentGenre) {
