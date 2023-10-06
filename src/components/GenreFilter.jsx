@@ -23,10 +23,6 @@ const genres = [
 		name: "Crime",
 	},
 	{
-		id: 99,
-		name: "Documentary",
-	},
-	{
 		id: 18,
 		name: "Drama",
 	},
@@ -61,10 +57,6 @@ const genres = [
 	{
 		id: 878,
 		name: "Science Fiction",
-	},
-	{
-		id: 10770,
-		name: "TV Movie",
 	},
 	{
 		id: 53,

@@ -5,6 +5,7 @@ import SignForm from "./SignForm";
 import Input from "./Input";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import Spinner from "../components/Spinner";
 
 import axios from "axios";
 
@@ -12,6 +13,7 @@ const SignIn = () => {
 	const navigate = useNavigate();
 	const [auth, setAuth] = useContext(AuthContext);
 	const [error, setError] = useState("");
+	const [loading, setLoading] = useState("");
 
 	useEffect(() => {
 		if (auth) {
@@ -37,6 +39,7 @@ const SignIn = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
 		setError("");
 
 		if (!email || !password) {
@@ -45,6 +48,7 @@ const SignIn = () => {
 			setError("Invalid email.");
 		} else if (email && password) {
 			try {
+				setLoading(true);
 				const body = {
 					email,
 					password,
@@ -70,46 +74,54 @@ const SignIn = () => {
 				setError(e.response.data.error);
 				console.log(e.response.data.error);
 			}
+			setLoading(false);
 		}
 	};
 
 	return (
 		<div className="signin">
-			<div className="sign-logo">
-				<Logo />
-			</div>
-			<SignForm
-				title={"Sign In"}
-				subheading={"Sign in to access your saved movies."}>
-				<form className="form" onSubmit={(e) => handleSubmit(e)}>
-					<div className="sign-inputs">
-						<Input
-							type="text"
-							placeHolder={"Email"}
-							value={email}
-							callback={handleEmailChange}
-							error={error}
-						/>
-						<Input
-							type="password"
-							placeHolder={"Password"}
-							value={password}
-							callback={handlePasswordChange}
-							error={error}
-						/>
-					</div>
-					<p className="error-message">{error}</p>
-					<button className="sign-button" type="submit">
-						Sign In
-					</button>
-				</form>
-				<div className="sign-additional">
-					<span>Not a member? </span>
-					<Link to="/signup" className="sign-link">
-						Sign Up.
-					</Link>
+			<div className="sign-nav">
+				<div className="sign-logo">
+					<Logo />
 				</div>
-			</SignForm>
+				<Link to="/signup" className="link">
+					Sign Up
+				</Link>
+			</div>
+			<div className="sign-form-wrapper">
+				<SignForm
+					title={"Sign In"}
+					subheading={"Sign in to access your saved movies."}>
+					<form className="form" onSubmit={(e) => handleSubmit(e)}>
+						<div className="sign-inputs">
+							<Input
+								type="text"
+								placeHolder={"Email"}
+								value={email}
+								callback={handleEmailChange}
+								error={error}
+							/>
+							<Input
+								type="password"
+								placeHolder={"Password"}
+								value={password}
+								callback={handlePasswordChange}
+								error={error}
+							/>
+						</div>
+						<p className="error-message">{error}</p>
+						<button className="sign-button" type="submit">
+							{loading ? <Spinner /> : "Sign In"}
+						</button>
+					</form>
+					<div className="sign-additional">
+						<span>Not a member? </span>
+						<Link to="/signup" className="sign-link">
+							Sign Up.
+						</Link>
+					</div>
+				</SignForm>
+			</div>
 		</div>
 	);
 };

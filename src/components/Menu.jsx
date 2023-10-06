@@ -11,7 +11,9 @@ const Menu = ({ currentSection, setCurrentSection, setMovieResults }) => {
 
 	const handleMenuItemClick = (menuItem) => {
 		setCurrentSection(menuItem);
-		if (menuItem !== "My Playlist") {
+
+		if (menuItem !== currentSection && menuItem !== "My Playlist") {
+			setMovieResults([]);
 			getResults(menuItem);
 		}
 	};
