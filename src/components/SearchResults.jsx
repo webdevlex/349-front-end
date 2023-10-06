@@ -17,7 +17,7 @@ const SearchResults = ({ movieResults, currentGenre }) => {
 					<SearchResult
 						key={index}
 						movie={movie}
-						playlistIds={user.playlistIds}
+						playlistIds={user?.playlistIds}
 					/>
 				))}
 			</div>

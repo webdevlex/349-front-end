@@ -12,7 +12,7 @@ const HeartButton = ({ movie, movieMap, playlistIds }) => {
 	const [hoveringOverHeart, setHoveringOverHeart] = useState(false);
 	const [auth, setAuth] = useContext(AuthContext);
 	const [user, setUser] = useContext(UserContext);
-	const movieIsInPlaylist = playlistIds.includes(movie.id);
+	const movieIsInPlaylist = playlistIds?.includes(movie.id);
 	const [heartLoading, setHeartLoading] = useState(false);
 
 	const toggleHeartHover = () => {

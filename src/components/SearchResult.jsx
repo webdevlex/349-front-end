@@ -31,13 +31,18 @@ const genres = {
 
 const SearchResult = ({ movie, playlistIds }) => {
 	const [showModal, setShowModal] = useState(false);
+	const [fadeAway, setFadeAway] = useState(false);
 
 	const handleModalOpen = () => {
 		setShowModal(true);
 	};
 
 	const handleModalClose = () => {
-		setShowModal(false);
+		setFadeAway(true);
+		setTimeout(() => {
+			setShowModal(false);
+			setFadeAway(false);
+		}, 200);
 	};
 
 	const [movieMap, setMovieMap] = useState({});
@@ -85,37 +90,70 @@ const SearchResult = ({ movie, playlistIds }) => {
 
 			<Modal
 				isOpen={showModal}
-				className="result-modal"
+				className={`result-modal ${fadeAway ? "fade-away" : ""}`}
 				style={{
 					overlay: {
 						background: "rgba(0, 0, 0, 0.7)",
 					},
 				}}>
-				<img
-					className="modal-img"
-					src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-					alt=""
-				/>
+				<div className="modal-img-wrapper">
+					<div className="shader"></div>
+					<HeartButton
+						movie={movie}
+						movieMap={movieMap}
+						playlistIds={playlistIds}
+					/>
+					<img
+						className="modal-img"
+						src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+						alt=""
+					/>
+				</div>
 				<div className="modal-bottom">
-					<p className="modal-title">{movie.original_title}</p>
-					<p className="modal-text">
-						{movieMap && movieMap.contentRating}
-						&nbsp; | &nbsp;
-						{Math.floor(movieMap.runtime / 60)} Hours {movieMap.runtime % 60}{" "}
-						Min &nbsp; | &nbsp;
-						{movie.genre_ids.map((id, index) => (
-							<span key={id}>
-								{genres[id]}
-								{index !== movie.genre_ids.length - 1 ? ", " : ""}
+					<div className="modal-heading">
+						<p className="modal-title">
+							{movie.original_title}
+							<span className="modal-runtime">
+								{` ${Math.floor(movieMap.runtime / 60)}h ${
+									movieMap.runtime % 60
+								}min`}
 							</span>
-						))}
-						&nbsp; | &nbsp;
-						{movie.release_date}
+						</p>
+						<div className="modal-votes">
+							<p className="modal-avg">
+								{Math.round(movie.vote_average * 10) / 10}
+								<span className="out-of-10">/10</span>
+							</p>
+							<img src={star} alt="" className="star" />
+						</div>
+					</div>
+					<p className="modal-text">
+						<span className="modal-text">
+							{movieMap && movieMap.contentRating}
+						</span>
+						<span c> | </span>
+						<span>
+							{movie.genre_ids.map((id, index) => (
+								<span key={id}>
+									{genres[id]}
+									{index !== movie.genre_ids.length - 1 ? ", " : ""}
+								</span>
+							))}
+						</span>
+						<span> | </span>
+						<span>{movie.release_date.substr(0, 4)}</span>
 					</p>
-					<p>{movie.overview}</p>
-					<p>Director: {movieMap.directors}</p>
-					<p>Budget: ${movieMap.budget}</p>
-					<button onClick={handleModalClose}>Close Modal</button>
+					<p className="modal-overview">{movie.overview}</p>
+					<p className="modal-extra">
+						<strong className="accent-color">Director:</strong>{" "}
+						{movieMap.directors}
+					</p>
+					<p className="modal-extra">
+						<strong className="accent-color">Budget:</strong> ${movieMap.budget}
+					</p>
+					<button onClick={handleModalClose} className="modal-button">
+						Close Modal
+					</button>
 				</div>
 			</Modal>
 		</div>
