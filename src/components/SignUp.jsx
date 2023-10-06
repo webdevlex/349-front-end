@@ -5,6 +5,7 @@ import SignForm from "./SignForm";
 import Input from "./Input";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { BackendUrlContext } from "../context/BackendUrlContext";
 import Spinner from "../components/Spinner";
 
 import axios from "axios";
@@ -12,6 +13,7 @@ import axios from "axios";
 const SignIn = () => {
 	const navigate = useNavigate();
 	const [auth, setAuth] = useContext(AuthContext);
+	const backendUrl = useContext(BackendUrlContext);
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState("");
 
@@ -66,7 +68,7 @@ const SignIn = () => {
 					},
 				};
 				const res = await axios.post(
-					"http://localhost:5000/api/users/signup",
+					`${backendUrl}/api/users/signup`,
 					body,
 					options
 				);

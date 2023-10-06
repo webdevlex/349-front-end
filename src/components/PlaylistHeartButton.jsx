@@ -3,7 +3,7 @@ import heartSolid from "../images/heart-solid.svg";
 import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import removeFromPlaylist from "../helpers/removeFromPlaylist";
+import useRemoveFromPlaylist from "../hooks/useRemoveFromPlaylist";
 import "../styles/heart-button.css";
 
 const PlaylistHeartButton = ({ movie, playlistIds }) => {
@@ -11,6 +11,7 @@ const PlaylistHeartButton = ({ movie, playlistIds }) => {
 	const [hoveringOverHeart, setHoveringOverHeart] = useState(false);
 	const [auth, setAuth] = useContext(AuthContext);
 	const [user, setUser] = useContext(UserContext);
+	const removeFromPlaylist = useRemoveFromPlaylist();
 	const movieIsInPlaylist = playlistIds.includes(movie.id);
 
 	const toggleHeartHover = () => {

@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
 import heartSolid from "../images/heart-solid.svg";
-import removeFromPlaylist from "../helpers/removeFromPlaylist";
+import useRemoveFromPlaylist from "../hooks/useRemoveFromPlaylist";
 import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
+import { BackendUrlContext } from "../context/BackendUrlContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/heart-button.css";
@@ -12,6 +13,8 @@ const HeartButton = ({ movie, movieMap, playlistIds }) => {
 	const [hoveringOverHeart, setHoveringOverHeart] = useState(false);
 	const [auth, setAuth] = useContext(AuthContext);
 	const [user, setUser] = useContext(UserContext);
+	const backendUrl = useContext(BackendUrlContext);
+	const removeFromPlaylist = useRemoveFromPlaylist();
 	const movieIsInPlaylist = playlistIds?.includes(movie.id);
 	const [heartLoading, setHeartLoading] = useState(false);
 
@@ -32,7 +35,7 @@ const HeartButton = ({ movie, movieMap, playlistIds }) => {
 
 		try {
 			const updatedUser = await axios.post(
-				"http://localhost:5000/api/users/add-movie-to-playlist",
+				`${backendUrl}/api/users/add-movie-to-playlist`,
 				body,
 				options
 			);
