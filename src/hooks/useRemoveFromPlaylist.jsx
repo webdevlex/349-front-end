@@ -5,7 +5,7 @@ import { BackendUrlContext } from "../context/BackendUrlContext";
 const useRemoveFromPlaylist = () => {
 	const backendUrl = useContext(BackendUrlContext);
 
-	const removeFromPlaylist = async (movie_id, user_id, setHeartLoading) => {
+	const removeFromPlaylist = async (movie_id, user_id, heartLoading) => {
 		const body = { movie_id, user_id };
 		const options = {
 			headers: {
@@ -19,10 +19,10 @@ const useRemoveFromPlaylist = () => {
 				body,
 				options
 			);
-			setHeartLoading(false);
+			heartLoading.current = false;
 			return res.data;
 		} catch (err) {
-			setHeartLoading(false);
+			heartLoading.current = false;
 			console.error(err);
 		}
 	};

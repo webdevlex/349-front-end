@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import heartSolid from "../images/heart-solid.svg";
 import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
@@ -13,19 +13,19 @@ const PlaylistHeartButton = ({ movie }) => {
 	const [user, setUser] = useContext(UserContext);
 	const removeFromPlaylist = useRemoveFromPlaylist();
 	const movieIsInPlaylist = user?.playlistIds.includes(movie.id);
-	const [heartLoading, setHeartLoading] = useState(false);
+	const heartLoading = useRef(false);
 
 	const toggleHeartHover = () => {
 		setHoveringOverHeart((current) => !current);
 	};
 
 	const handleHeartClick = async () => {
-		setHeartLoading(true);
-		if (!heartLoading) {
+		if (!heartLoading.current) {
+			heartLoading.current = true;
 			const userData = await removeFromPlaylist(
 				movie.id,
 				user.user_id,
-				setHeartLoading
+				heartLoading
 			);
 			setUser(userData);
 		}
