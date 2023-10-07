@@ -6,19 +6,11 @@ import "../styles/search-results.css";
 const SearchResults = ({ movieResults, currentGenre }) => {
 	const [user, setUser] = useContext(UserContext);
 
-	// useEffect(() => {
-	// 	console.log(movieResults);
-	// }, [movieResults]);
-
 	return (
 		<div className="search-section">
 			<div className="search-results">
 				{movieResults.map((movie, index) => (
-					<SearchResult
-						key={index}
-						movie={movie}
-						playlistIds={user?.playlistIds}
-					/>
+					<SearchResult key={index} movie={movie} />
 				))}
 			</div>
 		</div>

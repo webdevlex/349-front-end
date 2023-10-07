@@ -6,7 +6,6 @@ export function UserProvider({ children }) {
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
 	useEffect(() => {
-		console.log("user context updating", user);
 		localStorage.setItem("user", JSON.stringify(user));
 	}, [user]);
 

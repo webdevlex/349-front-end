@@ -8,14 +8,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/heart-button.css";
 
-const HeartButton = ({ movie, movieMap, playlistIds }) => {
+const HeartButton = ({ movie, movieMap }) => {
 	const navigate = useNavigate();
 	const [hoveringOverHeart, setHoveringOverHeart] = useState(false);
 	const [auth, setAuth] = useContext(AuthContext);
 	const [user, setUser] = useContext(UserContext);
 	const backendUrl = useContext(BackendUrlContext);
 	const removeFromPlaylist = useRemoveFromPlaylist();
-	const movieIsInPlaylist = playlistIds?.includes(movie.id);
+	const movieIsInPlaylist = user?.playlistIds.includes(movie.id);
 	const [heartLoading, setHeartLoading] = useState(false);
 
 	const toggleHeartHover = () => {
@@ -48,16 +48,22 @@ const HeartButton = ({ movie, movieMap, playlistIds }) => {
 	};
 
 	const handleHeartClick = async () => {
-		if (!movieIsInPlaylist) {
-			if (auth) {
-				setHeartLoading(true);
-				addMovieToPlaylist();
+		setHeartLoading(true);
+		if (!heartLoading) {
+			if (!movieIsInPlaylist) {
+				if (auth) {
+					addMovieToPlaylist();
+				} else {
+					navigate("/signin");
+				}
 			} else {
-				navigate("/signin");
+				const userData = await removeFromPlaylist(
+					movie.id,
+					user.user_id,
+					setHeartLoading
+				);
+				setUser(userData);
 			}
-		} else {
-			const userData = await removeFromPlaylist(movie.id, user.user_id);
-			setUser(userData);
 		}
 	};
 

@@ -29,7 +29,7 @@ const genres = {
 	37: "Western",
 };
 
-const SearchResult = ({ movie, playlistIds }) => {
+const SearchResult = ({ movie }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [fadeAway, setFadeAway] = useState(false);
 
@@ -62,11 +62,7 @@ const SearchResult = ({ movie, playlistIds }) => {
 		<div className="result">
 			<div className="result-img">
 				<div className="shader"></div>
-				<HeartButton
-					movie={movie}
-					movieMap={movieMap}
-					playlistIds={playlistIds}
-				/>
+				<HeartButton movie={movie} movieMap={movieMap} />
 				<img
 					loading="lazy"
 					src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
@@ -98,11 +94,7 @@ const SearchResult = ({ movie, playlistIds }) => {
 				}}>
 				<div className="modal-img-wrapper">
 					<div className="shader"></div>
-					<HeartButton
-						movie={movie}
-						movieMap={movieMap}
-						playlistIds={playlistIds}
-					/>
+					<HeartButton movie={movie} movieMap={movieMap} />
 					<img
 						className="modal-img"
 						src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
