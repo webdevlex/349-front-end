@@ -2,36 +2,31 @@ import React from "react";
 import axios from "axios";
 
 const useDefaultMovie = (setMovieResults, currentGenre) => {
+	// Define headers with authorization token
 	const header = {
 		headers: {
 			Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
 		},
 	};
 
+	// Define a function to fetch default movies
 	return async () => {
 		try {
-			const req1 = axios.get(
-				`https://api.themoviedb.org/3/movie/popular?language=en&page=1`,
-				header
+			// Create an array of Axios requests to fetch popular movies from multiple pages
+			const requests = Array.from({ length: 5 }, (_, page) =>
+				axios.get(
+					`https://api.themoviedb.org/3/movie/popular?language=en&page=${
+						page + 1
+					}`,
+					header
+				)
 			);
-			const req2 = axios.get(
-				`https://api.themoviedb.org/3/movie/popular?language=en&page=2`,
-				header
-			);
-			const req3 = axios.get(
-				`https://api.themoviedb.org/3/movie/popular?language=en&page=3`,
-				header
-			);
-			const req4 = axios.get(
-				`https://api.themoviedb.org/3/movie/popular?language=en&page=4`,
-				header
-			);
-			const req5 = axios.get(
-				`https://api.themoviedb.org/3/movie/popular?language=en&page=5`,
-				header
-			);
-			Promise.all([req1, req2, req3, req4, req5]).then((values) => {
+
+			// Use Promise.all to send all requests concurrently and wait for all to complete
+			Promise.all(requests).then((values) => {
 				const results = [];
+
+				// Iterate through the responses and extract movie results
 				values.forEach((res) => {
 					res.data.results.forEach((result) => {
 						if (result.backdrop_path && result.original_language === "en") {
@@ -45,6 +40,8 @@ const useDefaultMovie = (setMovieResults, currentGenre) => {
 						}
 					});
 				});
+
+				// Set the movie results in the state
 				setMovieResults(results);
 			});
 		} catch (e) {

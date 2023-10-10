@@ -7,6 +7,7 @@ import HeartButton from "./HeartButton";
 
 Modal.setAppElement("#root");
 
+// Mapping of genre IDs to genre names
 const genres = {
 	28: "Action",
 	12: "Adventure",
@@ -29,14 +30,17 @@ const genres = {
 	37: "Western",
 };
 
+// SearchResult component for displaying movie search results.
 const SearchResult = ({ movie }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [fadeAway, setFadeAway] = useState(false);
 
+	// Function to open the modal
 	const handleModalOpen = () => {
 		setShowModal(true);
 	};
 
+	// Function to close the modal with a fade effect
 	const handleModalClose = () => {
 		setFadeAway(true);
 		setTimeout(() => {
@@ -45,10 +49,12 @@ const SearchResult = ({ movie }) => {
 		}, 200);
 	};
 
+	// State to store additional movie information
 	const [movieMap, setMovieMap] = useState({});
 	const getMovieInfo = useMovieModalInfo(setMovieMap, movie.name);
 
 	useEffect(() => {
+		// Fetch and set additional movie information
 		getMovieInfo(movie.id)
 			.then((movieInfo) => {
 				setMovieMap(movieInfo);

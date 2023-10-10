@@ -1,15 +1,14 @@
-import React, { useContext, useEffect } from "react";
-import { UserContext } from "../context/UserContext";
+import React from "react";
 import SearchResult from "./SearchResult";
 import "../styles/search-results.css";
 
-const SearchResults = ({ movieResults, currentGenre }) => {
-	const [user, setUser] = useContext(UserContext);
-
+// SearchResults component for displaying a list of movie search results.
+const SearchResults = ({ movieResults }) => {
 	return (
 		<div className="search-section">
 			<div className="search-results">
 				{movieResults.map((movie, index) => (
+					// Render a SearchResult component for each movie in the results
 					<SearchResult key={index} movie={movie} />
 				))}
 			</div>

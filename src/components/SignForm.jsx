@@ -2,13 +2,14 @@ import React from "react";
 import "../styles/sign-form.css";
 import Logo from "./Logo";
 
+// SignForm component for rendering a form with a title and subheading.
 const SignForm = ({ children, title, subheading }) => {
 	return (
 		<div className="sign-form">
-			<Logo />
-			<h1 className="title">{title}</h1>
-			<h2 className="subheading">{subheading}</h2>
-			{children}
+			<Logo /> {/* Render the Logo component */}
+			<h1 className="title">{title}</h1> {/* Render the title */}
+			<h2 className="subheading">{subheading}</h2> {/* Render the subheading */}
+			{children} {/* Render the children components */}
 		</div>
 	);
 };

@@ -1,68 +1,52 @@
 import React, { useState, useContext, useRef } from "react";
-import heartSolid from "../images/heart-solid.svg";
-import useRemoveFromPlaylist from "../hooks/useRemoveFromPlaylist";
-import { AuthContext } from "../context/AuthContext";
-import { UserContext } from "../context/UserContext";
-import { BackendUrlContext } from "../context/BackendUrlContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
+import heartSolid from "../images/heart-solid.svg";
 import "../styles/heart-button.css";
 
+import useRemoveFromPlaylist from "../hooks/useRemoveFromPlaylist";
+import useAddToPlaylist from "../hooks/useAddToPlaylist";
+import { AuthContext } from "../context/AuthContext";
+import { UserContext } from "../context/UserContext";
+
+// HeartButton component that handles adding/removing movies from a playlist.
 const HeartButton = ({ movie, movieMap }) => {
 	const navigate = useNavigate();
+
 	const [hoveringOverHeart, setHoveringOverHeart] = useState(false);
-	const [auth, setAuth] = useContext(AuthContext);
-	const [user, setUser] = useContext(UserContext);
-	const backendUrl = useContext(BackendUrlContext);
-	const removeFromPlaylist = useRemoveFromPlaylist();
-	const movieIsInPlaylist = user?.playlistIds.includes(movie.id);
 	const heartLoading = useRef(false);
 
+	const [auth, setAuth] = useContext(AuthContext);
+	const [user, setUser] = useContext(UserContext);
+
+	const removeFromPlaylist = useRemoveFromPlaylist();
+	const addToPlaylist = useAddToPlaylist();
+	const movieIsInPlaylist = user?.playlistIds.includes(movie.id);
+
+	// Function to toggle the hover state of the heart button.
 	const toggleHeartHover = () => {
 		setHoveringOverHeart((current) => !current);
 	};
 
-	const addMovieToPlaylist = async () => {
-		const user = JSON.parse(localStorage.getItem("user"));
-		const movieDetails = { ...movie, ...movieMap };
-
-		const body = { movie: movieDetails, user_id: user.user_id };
-		const options = {
-			headers: {
-				Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
-			},
-		};
-
-		try {
-			const updatedUser = await axios.post(
-				`${backendUrl}/api/users/add-movie-to-playlist`,
-				body,
-				options
-			);
-
-			setUser(updatedUser.data);
-		} catch (err) {
-			console.log(err);
-		}
-		heartLoading.current = false;
-	};
-
+	// Function to handle the click event on the heart button.
 	const handleHeartClick = async () => {
 		if (!heartLoading.current) {
-			heartLoading.current = true;
+			heartLoading.current = true; // Set the loading state to true to prevent multiple clicks
+
 			if (!movieIsInPlaylist) {
 				if (auth) {
-					addMovieToPlaylist();
+					addToPlaylist(movie, movieMap); // If the movie is not in the playlist and the user is authenticated, add it.
 				} else {
-					navigate("/signin");
+					navigate("/signin"); // If the user is not authenticated, navigate to the signin page.
 				}
 			} else {
 				const userData = await removeFromPlaylist(
 					movie.id,
 					user.user_id,
 					heartLoading
-				);
-				setUser(userData);
+				); // If the movie is already in the playlist, remove it.
+
+				setUser(userData); // Update the user context with the new user data
 			}
 		}
 	};
@@ -76,8 +60,9 @@ const HeartButton = ({ movie, movieMap }) => {
 			onMouseOver={toggleHeartHover}
 			onMouseOut={toggleHeartHover}>
 			<img src={heartSolid} alt="" className="heart-icon" />
+			{/* Display the heart icon */}
 		</button>
 	);
 };
 
-export default HeartButton;
+export default HeartButton; // Export the HeartButton component as the default export.

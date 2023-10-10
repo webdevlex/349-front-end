@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 
 const useMenuClick = (setMovieResults) => {
+	// Define headers with authorization token
 	const header = {
 		headers: {
 			Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
@@ -31,27 +32,18 @@ const useMenuClick = (setMovieResults) => {
 
 		try {
 			if (currentSection === "Search" && currentGenre) {
-				const req1 = await axios.get(
-					"https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_count.desc",
-					header
+				// Fetch movies based on the current genre and section
+				const requests = Array.from({ length: 5 }, (_, page) =>
+					axios.get(
+						`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${
+							page + 1
+						}&sort_by=vote_count.desc`,
+						header
+					)
 				);
-				const req2 = await axios.get(
-					"https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=2&sort_by=vote_count.desc",
-					header
-				);
-				const req3 = await axios.get(
-					"https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=3&sort_by=vote_count.desc",
-					header
-				);
-				const req4 = await axios.get(
-					"https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=4&sort_by=vote_count.desc",
-					header
-				);
-				const req5 = await axios.get(
-					"https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=5&sort_by=vote_count.desc",
-					header
-				);
-				Promise.all([req1, req2, req3, req4, req5]).then((values) => {
+
+				// Use Promise.all to send all requests concurrently and wait for all to complete
+				Promise.all(requests).then((values) => {
 					const results = [];
 					values.forEach((res) => {
 						res.data.results.forEach((result) => {
@@ -66,9 +58,11 @@ const useMenuClick = (setMovieResults) => {
 							}
 						});
 					});
+					// Set the movie results in the state, limited to 20 items
 					setMovieResults(results.slice(0, 20));
 				});
 			} else {
+				// Fetch movies based on the current section
 				const res = await axios.get(url, header);
 				setMovieResults(res.data.results);
 			}

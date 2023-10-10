@@ -5,17 +5,14 @@ import SignForm from "./SignForm";
 import Input from "./Input";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { UserContext } from "../context/UserContext";
-import { BackendUrlContext } from "../context/BackendUrlContext";
 import Spinner from "../components/Spinner";
 
-import axios from "axios";
+// Import the custom hook
+import useSignUp from "../hooks/useSignUp";
 
 const SignIn = () => {
 	const navigate = useNavigate();
 	const [auth, setAuth] = useContext(AuthContext);
-	const [user, setUser] = useContext(UserContext);
-	const backendUrl = useContext(BackendUrlContext);
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState("");
 
@@ -46,6 +43,10 @@ const SignIn = () => {
 		return regex.test(email);
 	};
 
+	// Use the custom hook
+	const { signUp, error: signUpError, loading: signUpLoading } = useSignUp();
+
+	// Function to handle form submission
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setError("");
@@ -57,35 +58,7 @@ const SignIn = () => {
 		} else if (password !== confirmPassword) {
 			setError("Passwords do not match.");
 		} else {
-			setLoading(true);
-			try {
-				const body = {
-					email,
-					password,
-					confirmPassword,
-				};
-				const options = {
-					headers: {
-						"content-type": "application/json",
-					},
-				};
-				const res = await axios.post(
-					`${backendUrl}/api/users/signup`,
-					body,
-					options
-				);
-				if (res.status === 200) {
-					localStorage.setItem("auth", JSON.stringify(true));
-					localStorage.setItem("user", JSON.stringify(res.data));
-					setUser(res.data);
-					setAuth(true);
-					navigate("/search");
-				}
-			} catch (e) {
-				setError(e.response.data.error);
-				console.error(e.response.data.error);
-			}
-			setLoading(false);
+			signUp(email, password, confirmPassword, navigate); // Use signUp from the custom hook
 		}
 	};
 
@@ -95,8 +68,8 @@ const SignIn = () => {
 				<div className="sign-logo">
 					<Logo />
 				</div>
-				<Link to="/signin" className="link">
-					Sign In
+				<Link to="/signup" className="link">
+					Sign Up
 				</Link>
 			</div>
 			<div className="sign-form-wrapper">
@@ -127,9 +100,9 @@ const SignIn = () => {
 								error={error}
 							/>
 						</div>
-						<p className="error-message">{error}</p>
+						<p className="error-message">{error || signUpError}</p>
 						<button className="sign-button" type="submit">
-							{loading ? <Spinner /> : "Sign In"}
+							{loading || signUpLoading ? <Spinner /> : "Sign In"}
 						</button>
 					</form>
 					<div className="sign-additional">

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import HeartButton from "./HeartButton";
 import PlaylistHeartButton from "./PlaylistHeartButton";
 import star from "../images/star-solid.svg";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 
+// Genre mapping
 const genres = {
 	28: "Action",
 	12: "Adventure",
@@ -28,14 +28,17 @@ const genres = {
 	37: "Western",
 };
 
+// PlaylistMovie component displays a movie item in the playlist.
 const PlaylistMovie = ({ movie }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [fadeAway, setFadeAway] = useState(false);
 
+	// Handle modal open
 	const handleModalOpen = () => {
 		setShowModal(true);
 	};
 
+	// Handle modal close
 	const handleModalClose = () => {
 		setFadeAway(true);
 		setTimeout(() => {

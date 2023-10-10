@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import "../styles/genre-filter.css";
 
+// An array of genre objects containing id and name.
 const genres = [
 	{
 		id: 28,
@@ -82,11 +83,15 @@ const genres = [
 	},
 ];
 
+// GenreFilter component that takes in setCurrentGenre and currentGenre as props.
 const GenreFilter = ({ setCurrentGenre, currentGenre }) => {
+	// Function to handle genre click events.
 	const handleGenreClick = (genre) => {
+		// If the current genre is selected and the clicked genre is the same, set it to null.
 		if (currentGenre && genre.name === currentGenre.name) {
 			setCurrentGenre(null);
 		} else {
+			// Otherwise, set the clicked genre as the current genre.
 			setCurrentGenre(genre);
 		}
 	};
@@ -94,6 +99,7 @@ const GenreFilter = ({ setCurrentGenre, currentGenre }) => {
 	return (
 		<div className="genre-container">
 			{genres.map((genre) => (
+				// Rendering GenreComponent for each genre in the genres array.
 				<GenreComponent
 					key={genre.id}
 					genre={genre.name}
@@ -105,9 +111,11 @@ const GenreFilter = ({ setCurrentGenre, currentGenre }) => {
 	);
 };
 
+// GenreComponent functional component that displays a genre and handles clicks.
 const GenreComponent = ({ genre, onClick, selected }) => {
 	return (
 		<div
+			// Adding CSS classes based on whether the genre is selected.
 			className={`genre-component ${selected ? "selected" : ""}`}
 			onClick={onClick}>
 			<p>{`${genre}`}</p>
@@ -115,4 +123,5 @@ const GenreComponent = ({ genre, onClick, selected }) => {
 	);
 };
 
+// Exporting the GenreFilter component as the default export.
 export default GenreFilter;
