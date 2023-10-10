@@ -1,17 +1,29 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import "../styles/home.css";
+
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 import NavBar from "./NavBar";
 import Logo from "./Logo";
-
-import "../styles/home.css";
 import GenreFilter from "./GenreFilter";
 import Menu from "./Menu";
 import SearchResults from "./SearchResults";
 import Playlist from "./Playlist";
 
 const Home = () => {
+	const [auth, setAuth] = useContext(AuthContext);
+	const navigate = useNavigate();
+
 	const [movieResults, setMovieResults] = useState([]);
 	const [currentGenre, setCurrentGenre] = useState(null);
 	const [currentSection, setCurrentSection] = useState("Search");
+
+	useEffect(() => {
+		if (!auth) {
+			navigate("/signin");
+		}
+	}, [auth]);
 
 	return (
 		<div className="home">

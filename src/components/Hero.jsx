@@ -10,10 +10,6 @@ const Hero = () => {
 				<h1 className="hero-heading">FlickFix</h1>
 				<p className="hero-sub-heading">The Ultimate Movie Playlist Creator</p>
 				<div className="hero-buttons">
-					<Link to="/search">
-						<button className="hero-button browse-button">Browse</button>{" "}
-					</Link>
-
 					<Link to="/signup">
 						<button className="hero-button hero-sign-up-button">Sign Up</button>
 					</Link>
