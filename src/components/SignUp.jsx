@@ -102,7 +102,7 @@ const SignIn = () => {
 						</div>
 						<p className="error-message">{error || signUpError}</p>
 						<button className="sign-button" type="submit">
-							{loading || signUpLoading ? <Spinner /> : "Sign In"}
+							{loading || signUpLoading ? <Spinner /> : "Sign Up"}
 						</button>
 					</form>
 					<div className="sign-additional">

@@ -33,11 +33,11 @@ const useSignUp = () => {
 			);
 
 			if (res.status === 200) {
-				localStorage.setItem("auth", JSON.stringify(true));
-				localStorage.setItem("user", JSON.stringify(res.data));
-				setUser(res.data);
-				setAuth(true);
-				navigate("/search");
+				// localStorage.setItem("auth", JSON.stringify(true));
+				// localStorage.setItem("user", JSON.stringify(res.data));
+				// setUser(res.data);
+				// setAuth(true);
+				navigate("/signin");
 			}
 		} catch (e) {
 			setError(e.response.data.error);
