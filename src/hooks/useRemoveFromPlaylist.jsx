@@ -25,11 +25,9 @@ const useRemoveFromPlaylist = () => {
 			);
 
 			// Update the heartLoading state and return the response data
-			heartLoading.current = false;
 			return res.data;
 		} catch (err) {
 			// Handle errors, update the heartLoading state, and log the error
-			heartLoading.current = false;
 			console.error(err);
 		}
 	};
