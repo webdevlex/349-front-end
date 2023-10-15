@@ -47,7 +47,9 @@ const useMenuClick = (setMovieResults) => {
 					const results = [];
 					values.forEach((res) => {
 						res.data.results.forEach((result) => {
+							// Must have image
 							if (result.backdrop_path) {
+								// Must match genre that is currently clicked
 								if (currentGenre) {
 									if (result.genre_ids.includes(currentGenre.id)) {
 										results.push(result);

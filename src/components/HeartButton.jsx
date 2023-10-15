@@ -48,6 +48,7 @@ const HeartButton = ({ movie, movieMap }) => {
 
 				setUser(userData); // Update the user context with the new user data
 			}
+			heartLoading.current = false; // Set the loading state to true to prevent multiple clicks
 		}
 	};
 
