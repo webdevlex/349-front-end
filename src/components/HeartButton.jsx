@@ -31,24 +31,22 @@ const HeartButton = ({ movie, movieMap }) => {
 	// Function to handle the click event on the heart button.
 	const handleHeartClick = async () => {
 		if (!heartLoading.current) {
-			heartLoading.current = true; // Set the loading state to true to prevent multiple clicks
-
-			if (!movieIsInPlaylist) {
-				if (auth) {
-					addToPlaylist(movie, movieMap); // If the movie is not in the playlist and the user is authenticated, add it.
+			if (auth) {
+				heartLoading.current = true; // Set the loading state to true to prevent multiple clicks
+				if (!movieIsInPlaylist) {
+					addToPlaylist(movie, movieMap, heartLoading); // If the movie is not in the playlist and the user is authenticated, add it.
 				} else {
-					navigate("/signin"); // If the user is not authenticated, navigate to the signin page.
+					const userData = await removeFromPlaylist(
+						movie.id,
+						user.user_id,
+						heartLoading
+					); // If the movie is already in the playlist, remove it.
+
+					setUser(userData); // Update the user context with the new user data
 				}
 			} else {
-				const userData = await removeFromPlaylist(
-					movie.id,
-					user.user_id,
-					heartLoading
-				); // If the movie is already in the playlist, remove it.
-
-				setUser(userData); // Update the user context with the new user data
+				navigate("/signin"); // If the user is not authenticated, navigate to the signin page.
 			}
-			heartLoading.current = false; // Set the loading state to true to prevent multiple clicks
 		}
 	};
 

@@ -23,12 +23,13 @@ const useRemoveFromPlaylist = () => {
 				body,
 				options
 			);
-
+			heartLoading.current = false;
 			// Update the heartLoading state and return the response data
 			return res.data;
 		} catch (err) {
 			// Handle errors, update the heartLoading state, and log the error
 			console.error(err);
+			heartLoading.current = false;
 		}
 	};
 

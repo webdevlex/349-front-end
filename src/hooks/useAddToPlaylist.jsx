@@ -9,7 +9,7 @@ const useAddToPlaylist = () => {
 	const backendUrl = useContext(BackendUrlContext);
 
 	// Function to add a movie to the user's playlist
-	const addToPlaylist = async (movie, movieMap) => {
+	const addToPlaylist = async (movie, movieMap, heartLoading) => {
 		// Retrieve the user from local storage
 		const user = JSON.parse(localStorage.getItem("user"));
 
@@ -33,11 +33,13 @@ const useAddToPlaylist = () => {
 				body,
 				options
 			);
+			heartLoading.current = false;
 
 			// Update the user context with the updated user data
 			setUser(updatedUser.data);
 		} catch (err) {
 			console.log(err);
+			heartLoading.current = false;
 		}
 	};
 
